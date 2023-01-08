@@ -7,8 +7,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Setter
 @Getter
-public class PostRequestDto {
-    private Long postId;
+public class PostSaveRequestDto {
     private String writer;
     private String info;
 }
