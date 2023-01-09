@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class PostsService {
+public class PostsService {  //접두사로 변경 필요!
     @Autowired
     private PostsRepository postsRepository;
 
