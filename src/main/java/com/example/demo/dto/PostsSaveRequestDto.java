@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class PostsSaveRequestDto {
+public class PostsSaveRequestDto {  //post를 저장하는 요청에 사용하는 dto
     private String title;
     private String content;
     private String author;
