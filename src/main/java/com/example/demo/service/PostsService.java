@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.dto.PostsListResponseDto;
 import com.example.demo.dto.PostsResponseDto;
 import com.example.demo.dto.PostsSaveRequestDto;
 import com.example.demo.entity.Posts;
@@ -9,6 +10,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class PostsService {
@@ -30,9 +36,12 @@ public class PostsService {
         return id;
     }
 
-    //글 리스트 처리
-    public Page<Posts> ListPosts(Pageable pageable){
-        return postsRepository.findAll(pageable);
+    //글 리스트
+    @Transactional(readOnly = true)
+    public List<PostsListResponseDto> ListPosts(){
+        return postsRepository.findAllDesc().stream()
+                .map(PostsListResponseDto::new)
+                .collect(Collectors.toList());
     }
     
     //특정 게시글 불러오기
@@ -45,6 +54,8 @@ public class PostsService {
     //특정 게시글 삭제
     @Transactional
     public void RemoveOrderPosts(Long id){
-        postsRepository.deleteById(id);
+        Posts posts = postsRepository.findById(id)
+                .orElseThrow(()->new IllegalArgumentException("해당 게시글이 없습니다. id = " + id));  //id로 찾아서 담기
+        postsRepository.delete(posts);
     }
 }
