@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.PostsListResponseDto;
 import com.example.demo.dto.PostsResponseDto;
 import com.example.demo.dto.PostsSaveRequestDto;
 import com.example.demo.dto.PostsUpdateRequestDto;
@@ -9,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -41,8 +44,9 @@ public class PostsController {
     }
 
     /*글 목록*/
-    public void postsOrderList(){
-
+    @GetMapping("/")
+    public List<PostsListResponseDto> postsOrderList(){
+        List<PostsListResponseDto> postsList = postsService.ListPosts();
+        return postsList;
     }
-
 }
