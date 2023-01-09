@@ -15,22 +15,22 @@ public class PostsService {  //접두사로 변경 필요!
 
     //Posts 글 등록
     @Transactional
-    public void postsAddOrder(Posts posts){
+    public void AddOrderPosts(Posts posts){
         postsRepository.save(posts);
     }
 
     //Posts 글 리스트 처리
-    public Page<Posts> postsList(Pageable pageable){
+    public Page<Posts> ListPosts(Pageable pageable){
         return postsRepository.findAll(pageable);
     }
     
     //Posts 특정 게시글 불러오기
-    public Posts postsFindOrder(Long id){
+    public Posts FindOrderPosts(Long id){
         return postsRepository.findById(id).get();
     }
 
     //Posts 특정 게시글 삭제
-    public void postsRemoveOrder(Long id){
+    public void RemoveOrderPosts(Long id){
         postsRepository.deleteById(id);
     }
 }
