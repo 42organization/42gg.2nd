@@ -9,12 +9,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class PostsService {  //접두사로 변경 필요!
+public class PostsService {
     @Autowired
     private PostsRepository postsRepository;
 
     //Posts 글 등록
-    @Transactional
+    @Transactional  //DB건들이는 함수는 transactionl 어노테이션 붙여줌
     public void AddOrderPosts(Posts posts){
         postsRepository.save(posts);
     }
@@ -30,6 +30,7 @@ public class PostsService {  //접두사로 변경 필요!
     }
 
     //Posts 특정 게시글 삭제
+    @Transactional
     public void RemoveOrderPosts(Long id){
         postsRepository.deleteById(id);
     }
