@@ -11,4 +11,5 @@ import lombok.Setter;
 public class PostModifyRequestDto {
     private Long postId;
     private String info;
+    private String tag;
 }

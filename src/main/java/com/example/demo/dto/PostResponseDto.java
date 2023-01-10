@@ -16,12 +16,18 @@ public class PostResponseDto {
     private String info;
     private LocalDateTime createdDate;
     private LocalDateTime modifiedDate;
+    private Long likeCnt;
+    private Long viewCnt;
+    private String tag;
 
     public PostResponseDto(Post post) {
         this.writer = post.getWriter();
         this.info = post.getInfo();
         this.createdDate = post.getCreatedDate();
         this.modifiedDate = post.getModifiedDate();
+        this.likeCnt = post.getLikeCnt();
+        this.viewCnt = post.getViewCnt();
+        this.tag = post.getTag();
     }
 
     @Override
