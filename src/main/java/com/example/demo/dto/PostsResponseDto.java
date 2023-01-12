@@ -9,11 +9,13 @@ public class PostsResponseDto {  //클라이언트에게 응답.
     private String title;
     private String content;
     private String author;
+    private Long likecount;
 
     public PostsResponseDto(Posts entity){
         this.id = entity.getId();
         this.title = entity.getTitle();
         this.content = entity.getContent();
         this.author = entity.getAuthor();
+        this.likecount = entity.getLikecount();
     }
 }
