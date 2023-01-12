@@ -1,9 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.dto.PostsListResponseDto;
-import com.example.demo.dto.PostsResponseDto;
-import com.example.demo.dto.PostsSaveRequestDto;
-import com.example.demo.dto.PostsUpdateRequestDto;
+import com.example.demo.dto.*;
 import com.example.demo.service.PostsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -45,5 +42,11 @@ public class PostsController {
     public List<PostsListResponseDto> postsOrderList(){
         List<PostsListResponseDto> postsList = postsService.ListPosts();
         return postsList;
+    }
+    
+    /*좋아요*/
+    @GetMapping("/{id}/dolike")
+    public Long postsAddLike(@PathVariable Long id){
+        return postsService.AddOrderLike(id);
     }
 }

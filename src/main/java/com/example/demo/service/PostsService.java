@@ -1,9 +1,6 @@
 package com.example.demo.service;
 
-import com.example.demo.dto.PostsListResponseDto;
-import com.example.demo.dto.PostsResponseDto;
-import com.example.demo.dto.PostsSaveRequestDto;
-import com.example.demo.dto.PostsUpdateRequestDto;
+import com.example.demo.dto.*;
 import com.example.demo.entity.Posts;
 import com.example.demo.repository.PostsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,5 +55,14 @@ public class PostsService {
         Posts posts = postsRepository.findById(id)
                 .orElseThrow(()->new IllegalArgumentException("해당 게시글이 없습니다. id = " + id));  //id로 찾아서 담기
         postsRepository.delete(posts);
+    }
+
+    //좋아요 누르기
+    @Transactional
+    public Long AddOrderLike(Long id){
+        Posts posts = postsRepository.findById(id)
+                .orElseThrow(()->new IllegalArgumentException("해당 게시글이 없습니다. id = " + id));
+        posts.dolike(posts.getLikecount()+1);
+        return id;
     }
 }
