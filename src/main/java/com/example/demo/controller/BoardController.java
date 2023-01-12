@@ -53,6 +53,6 @@ public class BoardController {
 
 		boardservice.write(boardTemp);
 		return "";
-		//.
+		//...
 	}
 }

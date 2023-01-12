@@ -19,5 +19,5 @@ public class Board {
 
     @Column(length = 500, nullable = true)
     private String content;
-
+    //.
 }
