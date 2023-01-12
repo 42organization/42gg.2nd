@@ -62,7 +62,7 @@ public class PostsService {
     public Long AddOrderLike(Long id){
         Posts posts = postsRepository.findById(id)
                 .orElseThrow(()->new IllegalArgumentException("해당 게시글이 없습니다. id = " + id));
-        posts.updatelike(posts.getLikecount()+1);
+        posts.updateLike(posts.getLikecount() + 1);
         return id;
     }
 
@@ -72,10 +72,19 @@ public class PostsService {
         Posts posts = postsRepository.findById(id)
                 .orElseThrow(()->new IllegalArgumentException("해당 게시글이 없습니다. id = " + id));
         if (posts.getLikecount() > 0){
-            posts.updatelike(posts.getLikecount()-1);
+            posts.updateLike(posts.getLikecount()-1);
         }else{
-            posts.updatelike(0L);
+            posts.updateLike(0L);
         }
+        return id;
+    }
+
+    //조회수 증가
+    @Transactional
+    public Long AddOrderView(Long id){
+        Posts posts = postsRepository.findById(id)
+                .orElseThrow(()->new IllegalArgumentException("해당 게시글이 없습니다. id = " + id));
+        posts.updateView(posts.getViewcount() + 1);
         return id;
     }
 }

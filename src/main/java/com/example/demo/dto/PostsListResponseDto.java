@@ -14,6 +14,7 @@ public class PostsListResponseDto {
     private String author;
     private LocalDateTime modifiedDate;
     private Long likecount;
+    private Long viewcount;
 
     //기존에 있던 값들을 정렬(PostsListResponseDto), 보여주기(PostsResponseDto)는 @Build 어노테이션 사용X. 값 넣어주는 애들만 @build 사용
     public PostsListResponseDto(Posts entity){
@@ -23,5 +24,6 @@ public class PostsListResponseDto {
         this.author = entity.getAuthor();
         this.modifiedDate = entity.getModifiedDate();
         this.likecount = entity.getLikecount();
+        this.viewcount = entity.getViewcount();
     }
 }

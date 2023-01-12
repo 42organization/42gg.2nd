@@ -28,12 +28,16 @@ public class Posts extends BaseTimeEntity{
     @ColumnDefault("0")
     private Long likecount;
 
+    @ColumnDefault("0")
+    private Long viewcount;
+
     @Builder
-    public Posts(String title, String content, String author, Long likecount){
+    public Posts(String title, String content, String author, Long likecount, Long viewcount){
         this.title = title;
         this.content = content;
         this.author = author;
         this.likecount = likecount;
+        this.viewcount = viewcount;
     }
 
     //Posts 게시글 수정
@@ -43,7 +47,12 @@ public class Posts extends BaseTimeEntity{
     }
 
     //Posts 좋아요
-    public void updatelike(Long likecount){
+    public void updateLike(Long likecount){
         this.likecount = likecount;
+    }
+    
+    //Posts 조회수 증가
+    public void updateView(Long viewcount) {
+        this.viewcount = viewcount;
     }
 }

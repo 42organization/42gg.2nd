@@ -12,13 +12,15 @@ public class PostsSaveRequestDto {  //post를 저장하는 요청에 사용하�
     private String content;
     private String author;
     private Long likecount;
+    private Long viewcount;
 
     @Builder
-    public PostsSaveRequestDto(String title, String content, String author, Long likecount){
+    public PostsSaveRequestDto(String title, String content, String author, Long likecount, Long viewcount){
         this.title = title;
         this.content = content;
         this.author = author;
         this.likecount = likecount;
+        this.viewcount = viewcount;
     }
 
     public Posts toEntity(){
@@ -27,6 +29,7 @@ public class PostsSaveRequestDto {  //post를 저장하는 요청에 사용하�
                 .content(content)
                 .author(author)
                 .likecount(likecount)
+                .viewcount(viewcount)
                 .build();
     }
 }

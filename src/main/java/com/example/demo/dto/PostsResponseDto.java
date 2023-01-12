@@ -10,6 +10,7 @@ public class PostsResponseDto {  //클라이언트에게 응답.
     private String content;
     private String author;
     private Long likecount;
+    private Long viewcount;
 
     public PostsResponseDto(Posts entity){
         this.id = entity.getId();
@@ -17,5 +18,6 @@ public class PostsResponseDto {  //클라이언트에게 응답.
         this.content = entity.getContent();
         this.author = entity.getAuthor();
         this.likecount = entity.getLikecount();
+        this.viewcount = entity.getViewcount();
     }
 }

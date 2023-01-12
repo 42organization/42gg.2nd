@@ -19,9 +19,10 @@ public class PostsController {
         return postsService.AddOrderPosts(requestDto);
     }
 
-    /*글 보여주기*/
+    /*글 보여주기 + 조회수 증가*/
     @GetMapping("/{id}")
     public PostsResponseDto postsOrderDetails(@PathVariable Long id){
+        postsService.AddOrderView(id);  //조회수 증가
         return postsService.FindOrderPosts(id);
     }
 
@@ -55,5 +56,4 @@ public class PostsController {
     public Long postsRemoveLike(@PathVariable Long id){
         return postsService.RemoveOrderLike(id);
     }
-
 }
