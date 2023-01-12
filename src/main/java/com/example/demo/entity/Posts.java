@@ -43,7 +43,7 @@ public class Posts extends BaseTimeEntity{
     }
 
     //Posts 좋아요
-    public void dolike(Long likecount){
+    public void updatelike(Long likecount){
         this.likecount = likecount;
     }
 }

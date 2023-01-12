@@ -62,7 +62,20 @@ public class PostsService {
     public Long AddOrderLike(Long id){
         Posts posts = postsRepository.findById(id)
                 .orElseThrow(()->new IllegalArgumentException("해당 게시글이 없습니다. id = " + id));
-        posts.dolike(posts.getLikecount()+1);
+        posts.updatelike(posts.getLikecount()+1);
+        return id;
+    }
+
+    //좋아요 취소
+    @Transactional
+    public Long RemoveOrderLike(Long id){
+        Posts posts = postsRepository.findById(id)
+                .orElseThrow(()->new IllegalArgumentException("해당 게시글이 없습니다. id = " + id));
+        if (posts.getLikecount() > 0){
+            posts.updatelike(posts.getLikecount()-1);
+        }else{
+            posts.updatelike(0L);
+        }
         return id;
     }
 }

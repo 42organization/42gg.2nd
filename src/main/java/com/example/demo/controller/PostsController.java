@@ -49,4 +49,11 @@ public class PostsController {
     public Long postsAddLike(@PathVariable Long id){
         return postsService.AddOrderLike(id);
     }
+
+    /*좋아요 취소*/
+    @GetMapping("/{id}/undolike")
+    public Long postsRemoveLike(@PathVariable Long id){
+        return postsService.RemoveOrderLike(id);
+    }
+
 }
