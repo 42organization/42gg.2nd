@@ -1,16 +1,15 @@
-package com.example.demo.dto;
+package com.example.demo.dto.post;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @NoArgsConstructor
-@Setter
 @Getter
-@AllArgsConstructor
-public class PostSaveRequestDto {
-    private String writer;
+@Setter
+
+public class PostModifyRequestDto {
+    private Long postId;
     private String info;
     private String tag;
 }

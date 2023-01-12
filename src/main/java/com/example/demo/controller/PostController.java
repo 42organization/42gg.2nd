@@ -1,10 +1,11 @@
 package com.example.demo.controller;
 
 import com.example.demo.domain.Post;
-import com.example.demo.dto.AllPostResponseDto;
-import com.example.demo.dto.PostModifyRequestDto;
-import com.example.demo.dto.PostSaveRequestDto;
-import com.example.demo.dto.PostResponseDto;
+import com.example.demo.dto.like.LikeRequestDto;
+import com.example.demo.dto.post.AllPostResponseDto;
+import com.example.demo.dto.post.PostModifyRequestDto;
+import com.example.demo.dto.post.PostSaveRequestDto;
+import com.example.demo.dto.post.PostResponseDto;
 import com.example.demo.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -25,6 +26,12 @@ public class PostController {
         return postService.getPostById(postId);
     }
 
+    @PatchMapping("/view")
+    public ResponseEntity<Long> incViewCnt(@RequestParam Long postId) {
+        Long id = postService.incView(postId);
+        return new ResponseEntity<Long>(id, HttpStatus.OK);
+    }
+
     @GetMapping("/all")
     public AllPostResponseDto getAllPosts() {
         List<Post> postList =  postService.getAllPosts();
@@ -35,8 +42,8 @@ public class PostController {
 
     @PostMapping
     ResponseEntity<Long> savePost(@RequestBody PostSaveRequestDto postSaveRequestDto) {
-        Long id = postService.savePost(postSaveRequestDto.getWriter(), postSaveRequestDto.getInfo()
-            ,postSaveRequestDto.getTag());
+        Long id = postService.savePost(postSaveRequestDto.getMemberId(), postSaveRequestDto.getTitle(),
+                postSaveRequestDto.getInfo(), postSaveRequestDto.getTag());
         return new ResponseEntity<Long>(id, HttpStatus.OK);
     }
 
@@ -47,15 +54,15 @@ public class PostController {
         return new ResponseEntity<Long>(id, HttpStatus.OK);
     }
 
-    @PatchMapping("/like")
-    ResponseEntity<Long> likePost(@RequestParam Long postId) {
-        Long id = postService.likePost(postId);
+    @PostMapping("/like")
+    ResponseEntity<Long> likePost(@RequestBody LikeRequestDto data) {
+        Long id = postService.likePost(data.getPostId(), data.getMemberId());
         return new ResponseEntity<>(id, HttpStatus.OK);
     }
 
-    @PatchMapping("/unlike")
-    ResponseEntity<Long> unlikePost(@RequestParam Long postId) {
-        Long id = postService.unlikePost(postId);
+    @PostMapping("/unlike")
+    ResponseEntity<Long> unlikePost(@RequestBody LikeRequestDto data) {
+        Long id = postService.unlikePost(data.getPostId(), data.getMemberId());
         return new ResponseEntity<>(id, HttpStatus.OK);
     }
 

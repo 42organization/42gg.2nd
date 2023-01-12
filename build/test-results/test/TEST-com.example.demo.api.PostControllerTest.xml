@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.demo.api.PostControllerTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2023-01-12T02:23:33" hostname="ihyeongyuui-MacBookPro.local" time="0.863">
+  <properties/>
+  <testcase name="getPostTest()" classname="com.example.demo.api.PostControllerTest" time="0.79"/>
+  <testcase name="deletePostTest()" classname="com.example.demo.api.PostControllerTest" time="0.04"/>
+  <testcase name="savePostTest()" classname="com.example.demo.api.PostControllerTest" time="0.027"/>
+  <system-out><![CDATA[11:23:26.950 [Test worker] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Neither @ContextConfiguration nor @ContextHierarchy found for test class [PostControllerTest]: using SpringBootContextLoader
+11:23:26.957 [Test worker] DEBUG org.springframework.test.context.support.AbstractContextLoader - Could not detect default resource locations for test class [com.example.demo.api.PostControllerTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+11:23:26.959 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.example.demo.api.PostControllerTest]: PostControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+11:23:27.003 [Test worker] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Using ContextCustomizers for test class [PostControllerTest]: [DisableObservabilityContextCustomizer, PropertyMappingContextCustomizer, Customizer, ExcludeFilterContextCustomizer, DuplicateJsonObjectContextCustomizer, MockitoContextCustomizer, TestRestTemplateContextCustomizer]
+11:23:27.121 [Test worker] DEBUG org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider - Identified candidate component class: file [/Users/hyunkyu/Desktop/42gg/build/classes/java/main/com/example/demo/DemoApplication.class]
+11:23:27.123 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.example.demo.DemoApplication for test class com.example.demo.api.PostControllerTest
+11:23:27.287 [Test worker] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Using TestExecutionListeners for test class [PostControllerTest]: [ServletTestExecutionListener, DirtiesContextBeforeModesTestExecutionListener, ApplicationEventsTestExecutionListener, MockitoTestExecutionListener, DependencyInjectionTestExecutionListener, DirtiesContextTestExecutionListener, TransactionalTestExecutionListener, SqlScriptsTestExecutionListener, EventPublishingTestExecutionListener, RestDocsTestExecutionListener, MockRestServiceServerResetTestExecutionListener, MockMvcPrintOnlyOnFailureTestExecutionListener, WebDriverTestExecutionListener, MockWebServiceServerTestExecutionListener, ResetMocksTestExecutionListener]
+11:23:27.289 [Test worker] DEBUG org.springframework.test.context.support.AbstractDirtiesContextTestExecutionListener - Before test class: class [PostControllerTest], class annotated with @DirtiesContext [false] with mode [null]
+11:23:27.306 [Test worker] DEBUG org.springframework.test.context.support.DependencyInjectionTestExecutionListener - Performing dependency injection for test class com.example.demo.api.PostControllerTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.0.1)
+
+2023-01-12T11:23:27.773+09:00  INFO 45460 --- [    Test worker] c.example.demo.api.PostControllerTest    : Starting PostControllerTest using Java 19.0.1 with PID 45460 (started by hyunkyu in /Users/hyunkyu/Desktop/42gg)
+2023-01-12T11:23:27.774+09:00  INFO 45460 --- [    Test worker] c.example.demo.api.PostControllerTest    : No active profile set, falling back to 1 default profile: "default"
+2023-01-12T11:23:28.733+09:00  INFO 45460 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-01-12T11:23:28.805+09:00  INFO 45460 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 62 ms. Found 1 JPA repository interfaces.
+2023-01-12T11:23:29.574+09:00  INFO 45460 --- [    Test worker] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 0 (http)
+2023-01-12T11:23:29.592+09:00  INFO 45460 --- [    Test worker] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-01-12T11:23:29.592+09:00  INFO 45460 --- [    Test worker] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.4]
+2023-01-12T11:23:29.740+09:00  INFO 45460 --- [    Test worker] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-01-12T11:23:29.744+09:00  INFO 45460 --- [    Test worker] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1941 ms
+2023-01-12T11:23:29.976+09:00  INFO 45460 --- [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-01-12T11:23:30.069+09:00  INFO 45460 --- [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.1.6.Final
+2023-01-12T11:23:30.341+09:00  WARN 45460 --- [    Test worker] org.hibernate.orm.deprecation            : HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-01-12T11:23:30.536+09:00  INFO 45460 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-01-12T11:23:31.035+09:00  INFO 45460 --- [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@5c79c5ec
+2023-01-12T11:23:31.037+09:00  INFO 45460 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-01-12T11:23:31.117+09:00  INFO 45460 --- [    Test worker] SQL dialect                              : HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+Hibernate: 
+    
+    drop table if exists post
+Hibernate: 
+    
+    create table post (
+       id bigint not null auto_increment,
+        created_date datetime(6),
+        modified_date datetime(6),
+        info varchar(255),
+        like_cnt bigint,
+        tag varchar(255),
+        view_cnt bigint,
+        writer varchar(255),
+        primary key (id)
+    ) engine=InnoDB
+2023-01-12T11:23:32.072+09:00  INFO 45460 --- [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-01-12T11:23:32.083+09:00  INFO 45460 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-01-12T11:23:32.481+09:00  WARN 45460 --- [    Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-01-12T11:23:33.007+09:00  INFO 45460 --- [    Test worker] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 49593 (http) with context path ''
+2023-01-12T11:23:33.020+09:00  INFO 45460 --- [    Test worker] c.example.demo.api.PostControllerTest    : Started PostControllerTest in 5.667 seconds (process running for 7.488)
+Hibernate: 
+    insert 
+    into
+        post
+        (created_date, info, like_cnt, modified_date, tag, view_cnt, writer) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+2023-01-12T11:23:33.523+09:00  INFO 45460 --- [o-auto-1-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-01-12T11:23:33.524+09:00  INFO 45460 --- [o-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-01-12T11:23:33.525+09:00  INFO 45460 --- [o-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+Hibernate: 
+    select
+        p1_0.id,
+        p1_0.created_date,
+        p1_0.info,
+        p1_0.like_cnt,
+        p1_0.modified_date,
+        p1_0.tag,
+        p1_0.view_cnt,
+        p1_0.writer 
+    from
+        post p1_0 
+    where
+        p1_0.id=?
+aaaa
+aaaaa
+1
+Hibernate: 
+    update
+        post 
+    set
+        info=?,
+        like_cnt=?,
+        modified_date=?,
+        tag=?,
+        view_cnt=?,
+        writer=? 
+    where
+        id=?
+Hibernate: 
+    insert 
+    into
+        post
+        (created_date, info, like_cnt, modified_date, tag, view_cnt, writer) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    select
+        p1_0.id,
+        p1_0.created_date,
+        p1_0.info,
+        p1_0.like_cnt,
+        p1_0.modified_date,
+        p1_0.tag,
+        p1_0.view_cnt,
+        p1_0.writer 
+    from
+        post p1_0 
+    where
+        p1_0.id=?
+Hibernate: 
+    delete 
+    from
+        post 
+    where
+        id=?
+Hibernate: 
+    select
+        p1_0.id,
+        p1_0.created_date,
+        p1_0.info,
+        p1_0.like_cnt,
+        p1_0.modified_date,
+        p1_0.tag,
+        p1_0.view_cnt,
+        p1_0.writer 
+    from
+        post p1_0 
+    where
+        p1_0.id=?
+aaaa
+Hibernate: 
+    insert 
+    into
+        post
+        (created_date, info, like_cnt, modified_date, tag, view_cnt, writer) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

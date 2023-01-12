@@ -1,4 +1,4 @@
-package com.example.demo.dto;
+package com.example.demo.dto.post;
 
 import com.example.demo.domain.Post;
 import lombok.Getter;
@@ -11,8 +11,9 @@ import java.time.LocalDateTime;
 @Setter
 @Getter
 public class PostResponseDto {
-    private String writer;
 
+    private String username;
+    private String title;
     private String info;
     private LocalDateTime createdDate;
     private LocalDateTime modifiedDate;
@@ -21,22 +22,15 @@ public class PostResponseDto {
     private String tag;
 
     public PostResponseDto(Post post) {
-        this.writer = post.getWriter();
+        this.username = post.getMember().getUsername();
+        this.title = post.getTitle();
         this.info = post.getInfo();
         this.createdDate = post.getCreatedDate();
         this.modifiedDate = post.getModifiedDate();
-        this.likeCnt = post.getLikeCnt();
+        this.likeCnt = Long.valueOf(post.getLikeList().size());
         this.viewCnt = post.getViewCnt();
         this.tag = post.getTag();
     }
 
-    @Override
-    public String toString() {
-        return "PostResponseDto{" +
-                "writer='" + writer + '\'' +
-                ", info='" + info + '\'' +
-                ", createdDate=" + createdDate +
-                ", modifiedDate=" + modifiedDate +
-                '}';
-    }
+
 }

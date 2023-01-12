@@ -1,7 +1,6 @@
 package com.example.demo;
 
-import jakarta.persistence.AttributeConverter;
-import jakarta.persistence.Converter;
+import javax.persistence.*;
 
 import java.sql.Date;
 import java.time.*;

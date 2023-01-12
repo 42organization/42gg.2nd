@@ -1,54 +1,56 @@
 package com.example.demo.domain;
 
 import com.example.demo.util.BaseTimeEntity;
-import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Post extends BaseTimeEntity {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "post_id")
     private Long id;
     private String info;
-    private String writer;
-    private Long likeCnt;
     private Long viewCnt;
     private String tag;
+    private String title;
 
-    private Post(String info, String writer) {
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    private Member member;
+
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
+    List<Like> likeList = new ArrayList<>();
+
+    private Post(Member m, String info, String title) {
         this.info = info;
-        this.writer = writer;
+        this.title = title;
+        this.member = m;
         this.tag = "";
-        this.likeCnt = Long.valueOf(0);
         this.viewCnt = Long.valueOf(0);
     }
 
-    private Post(String info, String writer, String tag) {
+    private Post(Member m, String info, String title, String tag) {
         this.info = info;
-        this.writer = writer;
+        this.title = title;
         this.tag = tag;
-        this.likeCnt = Long.valueOf(0);
+        this.member = m;
         this.viewCnt = Long.valueOf(0);
     }
 
-    public static Post createPostWithoutTag(String info, String writer) {
-        return new Post(info, writer);
+    public static Post createPostWithoutTag(Member m, String info, String title) {
+        return new Post(m, info, title);
     }
 
-    public static Post createPost(String info, String writer, String tag) {
-        return new Post(info, writer, tag);
-    }
-
-    public void addLike() {
-        this.likeCnt++;
-    }
-
-    public void cancelLike() {
-        if (this.likeCnt > 0)
-            this.likeCnt--;
+    public static Post createPost(Member m, String info, String title, String tag) {
+        return new Post(m, info, title, tag);
     }
 
     public void addViewCount() {
