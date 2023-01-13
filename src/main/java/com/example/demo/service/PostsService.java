@@ -3,6 +3,7 @@ package com.example.demo.service;
 import com.example.demo.dto.*;
 import com.example.demo.entity.Posts;
 import com.example.demo.repository.PostsRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,10 +15,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@RequiredArgsConstructor  //final이 선언된 모든 필드를 인자값으로하는 생성자
 @Service
 public class PostsService {
-    @Autowired
-    private PostsRepository postsRepository;
+    private final PostsRepository postsRepository;
 
     //글 등록
     @Transactional  //DB건들이는 함수는 transactionl 어노테이션 붙여줌
