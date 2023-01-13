@@ -21,7 +21,7 @@ public class PostsService {
     private final PostsRepository postsRepository;
     
     //글 등록
-    @Transactional  //DB수정하는 함수는 transactionl 어노테이션 붙여줌
+    @Transactional  //DB수정하는 함수는 transactionl 어노테이션 붙여주기
     public Long AddOrderPosts(PostsSaveRequestDto requestDto){
         return postsRepository.save(requestDto.toEntity()).getId();
     }
