@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 @Service
 public class PostsService {
     private final PostsRepository postsRepository;
-
+    
     //글 등록
     @Transactional  //DB건들이는 함수는 transactionl 어노테이션 붙여줌
     public Long AddOrderPosts(PostsSaveRequestDto requestDto){
