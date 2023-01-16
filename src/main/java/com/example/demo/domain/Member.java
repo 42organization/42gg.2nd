@@ -33,8 +33,4 @@ public class Member {
         this.username = username;
         this.passwd = passwd;
     }
-
-    public void addLike(Like like) {
-        this.likeList.add(like);
-    }
 }

@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -65,6 +66,8 @@ public class PostService {
                 .orElseThrow(()->new RuntimeException("해당 포스트가 존재하지 않습니다."));
         Like like = Like.builder()
                 .m(findMember).p(findPost).build();
+        if (!findMember.getLikeList().stream().noneMatch(l -> l.getPost().getId() == postId))
+            throw new RuntimeException("이미 좋아요를 누른 포스트 입니다");
         like.setLikeInMemberAndPost(findMember, findPost);
         likeRepository.save(like);
         return like.getId();
@@ -76,7 +79,7 @@ public class PostService {
         Post findPost = postRepository.findById(postId)
                 .orElseThrow(() -> new RuntimeException("해당 포스트가 존재하지 않습니다"));
         List<Like> likeList = findMember.getLikeList();
-        Like targetLike = likeList.stream().filter(l -> l.getId() == postId).findAny()
+        Like targetLike = likeList.stream().filter(l -> l.getPost().getId() == postId).findAny()
                 .orElseThrow(() -> new RuntimeException("해당 멤버가 좋아요를 누른 포스트가 아닙니다."));
         Long likeId = targetLike.getId();
         targetLike.deleteLikeInMemberAndPost(findMember, findPost);

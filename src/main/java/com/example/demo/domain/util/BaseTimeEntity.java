@@ -1,4 +1,4 @@
-package com.example.demo.util;
+package com.example.demo.domain.util;
 
 import javax.persistence.*;
 import lombok.Getter;

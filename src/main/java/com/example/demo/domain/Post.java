@@ -1,6 +1,6 @@
 package com.example.demo.domain;
 
-import com.example.demo.util.BaseTimeEntity;
+import com.example.demo.domain.util.BaseTimeEntity;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -2,13 +2,9 @@ package com.example.demo.dto.post;
 
 import com.example.demo.domain.Post;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.time.LocalDateTime;
 
-@NoArgsConstructor
-@Setter
 @Getter
 public class PostResponseDto {
 
