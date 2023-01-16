@@ -18,7 +18,7 @@ public class BoardController {
 	
 	@GetMapping("/writeform")
 	public String boardWriteForm() {
-		return "boardwriteform";
+		return "boardwrite";
 	}
 
 	@GetMapping("/list")
@@ -38,6 +38,7 @@ public class BoardController {
 	public Board boardView(@PathVariable Integer id) {
 		return boardservice.boardView(id);
 	}
+
 	@PostMapping("/write")
 	public String boardWrite(Board board, MultipartFile file) throws Exception{
 		System.out.println("boardWrite요청");
@@ -60,8 +61,7 @@ public class BoardController {
 		boardTemp.setTitle(board.getTitle());
 		boardTemp.setContent(board.getContent());
 
-		boardservice.write(boardTemp, file );
+		boardservice.write(boardTemp, file);
 		return "";
-		//.
 	}
 }//@Valid
