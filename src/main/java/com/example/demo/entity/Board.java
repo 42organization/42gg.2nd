@@ -16,8 +16,4 @@ public class Board {
     private String title;
     @Column(length = 500)
     private String content;
-    @Column(length = 150)
-    private String filename;
-    @Column(length = 300)
-    private String filepath;
 }
