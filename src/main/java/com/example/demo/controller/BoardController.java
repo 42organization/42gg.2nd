@@ -10,17 +10,18 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 @RestController
+@RequestMapping("/board")
 public class BoardController {
 
 	@Autowired
 	private BoardService boardservice;
 	
-	@GetMapping("/board/writeform")
+	@GetMapping("/writeform")
 	public String boardWriteForm() {
 		return "boardwriteform";
 	}
 
-	@GetMapping("/board/list")
+	@GetMapping("/list")
 	public List<Board> BoardView(String searchKeyword) {
 		System.out.println("/board/list GET 요청");
 
@@ -33,25 +34,25 @@ public class BoardController {
 	}
 
 
-	@GetMapping("/board/{id}/view")
+	@GetMapping("/{id}/view")
 	public Board boardView(@PathVariable Integer id) {
 		return boardservice.boardView(id);
 	}
-	@PostMapping("/board/write")
+	@PostMapping("/write")
 	public String boardWrite(Board board, MultipartFile file) throws Exception{
 		System.out.println("boardWrite요청");
 		boardservice.write(board, file);
 		return "";
 	}
 
-	@DeleteMapping("board/{id}/delete")
+	@DeleteMapping("/{id}/delete")
 	public String boardDelete(Integer id) {
 		boardservice.boardDelete(id);
 
 		return "";
 	}
 	
-	@PutMapping("board/{id}/update")
+	@PutMapping("/{id}/update")
 	public String boardUpdate(@PathVariable Integer id,
 							  	Board board,
 							  	MultipartFile file) throws Exception {
