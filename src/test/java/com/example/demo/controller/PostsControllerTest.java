@@ -127,7 +127,7 @@ class PostsControllerTest {
         HttpEntity<Posts> httpEntity = new HttpEntity<>(post1);
 
         ResponseEntity<Long> responseEntity = restTemplate.exchange(url, HttpMethod.DELETE, httpEntity, Long.class);
-        //Assertions.assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        Assertions.assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
         //Assertions.assertThat(responseEntity.getBody()).isGreaterThan(0L);
 
         List<Posts> postlist = postsRepository.findAll();
@@ -136,7 +136,53 @@ class PostsControllerTest {
     }
 
     @Test
-    void postsOrderList() {
+    @DisplayName("ReadPost")
+    void posts_Read(){
+        String title = "title";
+        String content = "content";
+        String author = "author";
+
+        Posts post1 = postsRepository.save(Posts.builder()
+                .title(title)
+                .content(content)
+                .author(author)
+                .build());
+
+        String url = "http://localhost:" + port + "/posts/" + post1.getId();
+
+        //when
+        ResponseEntity<Posts> responseEntity = restTemplate.getForEntity(url, Posts.class);
+
+        //then
+        Assertions.assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+
+        Posts posts = responseEntity.getBody();
+        Assertions.assertThat(posts.getTitle()).isEqualTo(title);
+        Assertions.assertThat(posts.getContent()).isEqualTo(content);
+        Assertions.assertThat(posts.getAuthor()).isEqualTo(author);
+    }
+
+    @Test
+    @DisplayName("AllListPosts")
+    void posts_List() {
+        Posts post1 = postsRepository.save(Posts.builder()
+                .title("title1")
+                .content("content1")
+                .author("author1")
+                .build());
+
+        Posts post2 = postsRepository.save(Posts.builder()
+                .title("title2")
+                .content("content2")
+                .author("author2")
+                .build());
+
+        String url = "http://localhost:" + port + "/posts/";
+        ResponseEntity<String> responseEntity = restTemplate.getForEntity(url, String.class);
+        Assertions.assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+
+        List<Posts> postslist = postsRepository.findAll();
+        Assertions.assertThat(postslist.size()).isEqualTo(2);
     }
 
     @Test
