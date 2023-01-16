@@ -1,0 +1,20 @@
+
+
+spring:
+  datasource:
+    url:    jdbc:mysql://localhost:3306/42gg_end
+    username: root
+    password: /*password*/
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        default_batch_fetch_size: 100
+
+logging-level:
+  org.hibernate.SQL: debug
