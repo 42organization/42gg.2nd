@@ -13,10 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 
 import java.util.List;
 
@@ -71,7 +68,7 @@ class PostsControllerTest {
 
     @Test
     @DisplayName("UpdatePosts")
-    void postsOrderModify() {
+    void posts_Modify() {
         //given
         Posts savedPosts = postsRepository.save(Posts.builder()
                 .title("title1")
@@ -102,7 +99,40 @@ class PostsControllerTest {
     }
 
     @Test
-    void postsOrderRemove() {
+    @DisplayName("RemovePosts")
+    void posts_Remove(){
+        //given
+        /*
+        String title = "title2";
+        String content = "content2";
+        String author = "author2";
+
+         */
+        Posts post1 = postsRepository.save(Posts.builder()
+                .title("title1")
+                .content("content1")
+                .author("author1")
+                .build());
+        Long deleteId = post1.getId();
+/*
+        Posts post2 = postsRepository.save(Posts.builder()
+                .title(title)
+                .content(content)
+                .author(author)
+                .build());
+*/
+        String url = "http://localhost:" + port + "/posts/" + deleteId;
+
+        //HttpHeaders httpHeaders = new HttpHeaders();
+        HttpEntity<Posts> httpEntity = new HttpEntity<>(post1);
+
+        ResponseEntity<Long> responseEntity = restTemplate.exchange(url, HttpMethod.DELETE, httpEntity, Long.class);
+        //Assertions.assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        //Assertions.assertThat(responseEntity.getBody()).isGreaterThan(0L);
+
+        List<Posts> postlist = postsRepository.findAll();
+        Assertions.assertThat(postlist).isEmpty();
+
     }
 
     @Test
