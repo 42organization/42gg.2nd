@@ -1,12 +1,12 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
-import lombok.Generated;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Getter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Getter
 @Entity
 public class Posts {
 
