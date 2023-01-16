@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -20,8 +21,7 @@ public class BoardService {
     private BoardRepository boardRepository;
 
     @Transactional
-    public void write(Board board, MultipartFile file) throws  Exception {
-
+    public Integer write(Board board, MultipartFile file) throws  Exception {
         if (file != null) {
             String projectPath = System.getProperty("user.dir") + "\\src\\man\\resources\\static.files";
             UUID uuid = UUID.randomUUID();
@@ -32,6 +32,7 @@ public class BoardService {
             board.setFilepath("/files/" + filename);
         }
         boardRepository.save(board);
+        return board.getId();
     }
 
     @Transactional(readOnly = true)
@@ -52,5 +53,19 @@ public class BoardService {
     @Transactional
     public void boardDelete(Integer id) {
         boardRepository.deleteById(id);
+    }
+
+    @Transactional
+    public void boardAddLike(Integer id) {
+        Board board = boardRepository.findById((id)).orElseThrow(RuntimeException::new);
+        board.addLikeCnt();
+        boardRepository.save(board);
+    }
+
+    @Transactional
+    public void boardAddView(Integer id) {
+        Board board = boardRepository.findById(id).orElseThrow(RuntimeException::new);
+        board.addViewCnt();
+        boardRepository.save(board);
     }
 }
