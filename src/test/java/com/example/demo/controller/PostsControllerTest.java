@@ -16,6 +16,7 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.*;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -142,11 +143,14 @@ class PostsControllerTest {
         String content = "content";
         String author = "author";
 
-        Posts post1 = postsRepository.save(Posts.builder()
+        postsRepository.save(Posts.builder()
                 .title(title)
                 .content(content)
                 .author(author)
                 .build());
+
+        Posts post1 = postsRepository.findAll().get(0);
+
 
         String url = "http://localhost:" + port + "/posts/" + post1.getId();
 
@@ -160,18 +164,19 @@ class PostsControllerTest {
         Assertions.assertThat(posts.getTitle()).isEqualTo(title);
         Assertions.assertThat(posts.getContent()).isEqualTo(content);
         Assertions.assertThat(posts.getAuthor()).isEqualTo(author);
+        Assertions.assertThat(posts.getViewcount()).isEqualTo(1);   //조회수 테스트
     }
 
     @Test
     @DisplayName("AllListPosts")
     void posts_List() {
-        Posts post1 = postsRepository.save(Posts.builder()
+        postsRepository.save(Posts.builder()
                 .title("title1")
                 .content("content1")
                 .author("author1")
                 .build());
 
-        Posts post2 = postsRepository.save(Posts.builder()
+        postsRepository.save(Posts.builder()
                 .title("title2")
                 .content("content2")
                 .author("author2")
@@ -186,10 +191,46 @@ class PostsControllerTest {
     }
 
     @Test
-    void postsAddLike() {
+    @DisplayName("AddLikeTest")
+    void AddLike() {
+
+        postsRepository.save(Posts.builder()
+                .title("title")
+                .content("content")
+                .author("author")
+                .build());
+
+        Posts post1 = postsRepository.findAll().get(0);
+        String url = "http://localhost:" + port + "/posts/" + post1.getId() + "/dolike";
+
+        //when
+        ResponseEntity<String> responseEntity = restTemplate.getForEntity(url, String.class);
+
+        //then
+        Assertions.assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        Assertions.assertThat(post1.getLikecount()).isEqualTo(1);   //방문을 했는데도 왜 좋아요가 늘지 않았지??
     }
 
     @Test
-    void postsRemoveLike() {
+    @DisplayName("RemoveLike")
+    void RemoveLike() {
+        postsRepository.save(Posts.builder()
+                .title("title1")
+                .content("content1")
+                .author("author1")
+                .likecount(3L)
+                .build());
+
+        Posts post = postsRepository.findAll().get(0);
+
+        String url = "http://localhost:" + port + "/posts/" + post.getId() + "/undolike";
+
+        HttpEntity<Posts> httpEntity = new HttpEntity<>(post);
+
+        ResponseEntity<String> responseEntity = restTemplate.exchange(url, HttpMethod.DELETE, httpEntity, String.class);
+        Assertions.assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+
+        List<Posts> postsList = postsRepository.findAll();
+        Assertions.assertThat(postsList.get(0).getLikecount()).isEqualTo(2);
     }
 }
