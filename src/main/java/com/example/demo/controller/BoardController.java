@@ -39,6 +39,18 @@ public class BoardController {
 		return boardservice.boardView(id);
 	}
 
+	@PostMapping("/{id}/addLike")
+	public String addLike(@PathVariable Integer id) {
+		boardservice.boardAddLike(id);
+		return "addLike Success!";
+	}
+
+	@PostMapping("/{id}/addView")
+	public String addView(@PathVariable Integer id) {
+		boardservice.boardAddView(id);
+		return "addView Success!";
+	}
+
 	@PostMapping("/write")
 	public String boardWrite(Board board, MultipartFile file) throws Exception{
 		System.out.println("boardWrite요청");
