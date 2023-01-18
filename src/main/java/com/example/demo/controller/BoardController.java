@@ -3,6 +3,8 @@ package com.example.demo.controller;
 import com.example.demo.entity.Board;
 import com.example.demo.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -40,29 +42,29 @@ public class BoardController {
 	}
 
 	@PostMapping("/{id}/addLike")
-	public String addLike(@PathVariable Integer id) {
+	public ResponseEntity<Integer> addLike(@PathVariable Integer id) {
 		boardservice.boardAddLike(id);
-		return "addLike Success!";
+		return new ResponseEntity<Integer>(id, HttpStatus.OK);
 	}
 
 	@PostMapping("/{id}/addView")
-	public String addView(@PathVariable Integer id) {
+	public ResponseEntity<Integer> addView(@PathVariable Integer id) {
 		boardservice.boardAddView(id);
-		return "addView Success!";
+		return new ResponseEntity<Integer>(id, HttpStatus.OK);
 	}
 
 	@PostMapping("/write")
-	public String boardWrite(Board board, MultipartFile file) throws Exception{
+	public ResponseEntity<Integer> boardWrite(Board board, MultipartFile file) throws Exception{
 		System.out.println("boardWrite요청");
 		boardservice.write(board, file);
-		return "";
+		return new ResponseEntity<Integer>(board.getId(), HttpStatus.OK);
 	}
 
 	@DeleteMapping("/{id}/delete")
-	public String boardDelete(Integer id) {
+	public ResponseEntity<Integer> boardDelete(Integer id) {
 		boardservice.boardDelete(id);
 
-		return "";
+		return new ResponseEntity<Integer>(id, HttpStatus.OK);
 	}
 	
 	@PutMapping("/{id}/update")
@@ -72,6 +74,8 @@ public class BoardController {
 		Board boardTemp = boardservice.boardView(id);
 		boardTemp.setTitle(board.getTitle());
 		boardTemp.setContent(board.getContent());
+		boardTemp.setFilename(board.getFilename());
+		boardTemp.setFilepath(board.getFilepath());
 
 		boardservice.write(boardTemp, file);
 		return "";

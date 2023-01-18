@@ -23,7 +23,7 @@ public class BoardService {
     @Transactional
     public Integer write(Board board, MultipartFile file) throws  Exception {
         if (file != null) {
-            String projectPath = System.getProperty("user.dir") + "\\src\\man\\resources\\static.files";
+            String projectPath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\files";
             UUID uuid = UUID.randomUUID();
             String filename = uuid + "_" + file.getOriginalFilename();
             File savefile = new File(projectPath, filename);
