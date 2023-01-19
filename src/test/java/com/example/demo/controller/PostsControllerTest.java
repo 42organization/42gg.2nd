@@ -199,16 +199,17 @@ class PostsControllerTest {
                 .content("content")
                 .author("author")
                 .build());
+        //직접 .likecount(5L) 이런식으로 값 넣어도 정상적으로 증가됨
 
         Posts post1 = postsRepository.findAll().get(0);
         String url = "http://localhost:" + port + "/posts/" + post1.getId() + "/dolike";
 
         //when
-        ResponseEntity<String> responseEntity = restTemplate.getForEntity(url, String.class);
+        ResponseEntity<Long> responseEntity = restTemplate.getForEntity(url, Long.class);   //현재 post의 좋아요 개수를 반환
 
         //then
         Assertions.assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        Assertions.assertThat(post1.getLikecount()).isEqualTo(1);   //방문을 했는데도 왜 좋아요가 늘지 않았지??
+        Assertions.assertThat(responseEntity.getBody()).isEqualTo(1);
     }
 
     @Test
@@ -227,7 +228,7 @@ class PostsControllerTest {
 
         HttpEntity<Posts> httpEntity = new HttpEntity<>(post);
 
-        ResponseEntity<String> responseEntity = restTemplate.exchange(url, HttpMethod.DELETE, httpEntity, String.class);
+        ResponseEntity<Long> responseEntity = restTemplate.exchange(url, HttpMethod.DELETE, httpEntity, Long.class);
         Assertions.assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
 
         List<Posts> postsList = postsRepository.findAll();
