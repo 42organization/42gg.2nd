@@ -226,12 +226,8 @@ class PostsControllerTest {
 
         String url = "http://localhost:" + port + "/posts/" + post.getId() + "/undolike";
 
-        HttpEntity<Posts> httpEntity = new HttpEntity<>(post);
-
-        ResponseEntity<Long> responseEntity = restTemplate.exchange(url, HttpMethod.DELETE, httpEntity, Long.class);
+        ResponseEntity<Long> responseEntity = restTemplate.getForEntity(url, Long.class);
         Assertions.assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
-
-        List<Posts> postsList = postsRepository.findAll();
-        Assertions.assertThat(postsList.get(0).getLikecount()).isEqualTo(2);
+        Assertions.assertThat(responseEntity.getBody()).isEqualTo(2);
     }
 }
