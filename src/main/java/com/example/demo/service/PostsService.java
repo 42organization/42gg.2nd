@@ -64,7 +64,7 @@ public class PostsService {
         Posts posts = postsRepository.findById(id)
                 .orElseThrow(()->new IllegalArgumentException("해당 게시글이 없습니다. id = " + id));
         posts.updateLike(posts.getLikecount() + 1);
-        return id;
+        return posts.getLikecount();
     }
 
     //좋아요 취소
@@ -77,7 +77,7 @@ public class PostsService {
         }else{
             posts.updateLike(0L);
         }
-        return id;
+        return posts.getLikecount();
     }
 
     //조회수 증가
@@ -86,6 +86,6 @@ public class PostsService {
         Posts posts = postsRepository.findById(id)
                 .orElseThrow(()->new IllegalArgumentException("해당 게시글이 없습니다. id = " + id));
         posts.updateView(posts.getViewcount() + 1);
-        return id;
+        return posts.getViewcount();
     }
 }
