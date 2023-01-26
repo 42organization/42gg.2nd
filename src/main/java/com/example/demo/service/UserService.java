@@ -22,4 +22,8 @@ public class UserService {
         this.userRepository.save(user);
         return user;
     }
+
+    public User findByUsername(String username) {
+        return userRepository.findUserByUsername(username); // 에러 핸들링?
+    }
 }
